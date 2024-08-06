@@ -34,18 +34,4 @@ public class WebSecurityConfig {
                 .anyRequest().authenticated().and().httpBasic(Customizer.withDefaults());
         return http.build();
     }
-
-    /**
-    @Autowired
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("user")
-                .password("{noop}user123")
-                .roles("USERS")
-                .and()
-                .withUser("admin")
-                .password("{noop}master123")
-                .roles("MANAGERS");
-    }
-    */
 }
