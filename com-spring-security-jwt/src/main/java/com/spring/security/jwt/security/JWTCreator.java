@@ -1,6 +1,7 @@
 package com.spring.security.jwt.security;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -19,8 +20,11 @@ public class JWTCreator {
 
     public static JWTObject create(String token, String prefix, String key) {
         JWTObject object = new JWTObject();
-        token = token.replace(prefix, "");
-        Claims claims = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody();
+        token = token.replace(prefix, "").trim();
+        JwtParser parser = Jwts.parser()
+                .setSigningKey(key)
+                .build();
+        Claims claims = parser.parseClaimsJws(token).getBody();
         object.setSubject(claims.getSubject());
         object.setExpiration(claims.getExpiration());
         object.setIssuedAt(claims.getIssuedAt());
